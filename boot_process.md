@@ -1,6 +1,13 @@
-#Linux Basic and System startup
-##Boot Process
+# Linux Basic and System startup
+## Boot Process
 When you power on the computer, the Basic Input/Output System (BIOS) begins the startup process.
 BIOS (Basic Input/Output System) is a small program stored on a read-only memory (ROM) chip on a computer’s motherboard. It is the first software that runs when you power on your computer, even before the operating system is involved.
 The BIOS performs a series of checks and initializations known as the Power-On Self-Test (POST). During POST, the BIOS initializes critical hardware components such as the screen, keyboard, and memory, ensuring that everything is functioning correctly before the operating system loads. The BIOS also finds and loads the bootloader, which then starts the operating system.
 Once the BIOS finishes its checks, it hands control over to the next stage of the boot process, which is managed by the operating system.
+## Master Boot Record, EFI partition, and BootLoader
+Once the Power-On Self Test (POST) is complete, control of the system passes from the BIOS to the boot loader. The boot loader is a small program stored on one of the system’s storage devices, typically a hard disk or solid-state drive.
+On traditional BIOS/MBR systems, the boot loader resides in the boot sector. On more modern systems that use the (Unified) Extensible Firmware Interface (EFI or UEFI), it is stored in the EFI partition. Up to this point, the computer has not yet accessed its mass storage devices. Afterward, the system retrieves information such as the current date, time, and hardware configuration from the CMOS. This small battery-powered memory chip retains data even when the system is powered off.
+GRUB (GRand Unified Boot Loader) – the most common boot loader for Linux distributions.
+ISOLINUX – used for booting from removable media such as CDs or USB drive.
+DAS U-Boot – commonly used for embedded systems and appliances.
+Most Linux boot loaders provide a menu or user interface that allows you to choose between multiple operating systems or different Linux kernel versions. When you select a Linux option, the boot loader’s main job is to load the kernel image and the initial RAM disk (initrd or initramfs) into memory. These components contain essential drivers and files that keep the system booting until the whole operating system is loaded.
