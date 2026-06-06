@@ -1,3 +1,2 @@
 # Progress
-
-Learning logs, milestones, and reflections for the LFS101 course will live here.
+Day-01 - Completed the Chapter 03 Linux System and Startup.
