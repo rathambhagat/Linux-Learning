@@ -86,9 +86,25 @@ This sets the myfile file's timestamp to 4 p.m., December 9th (12 09 1600).
 
 ### mkdir and rmdir 
 mkdir is used to create a directory:
-
 mkdir sampdir 
 It creates a sample directory named sampdir under the current directory. 
 mkdir /usr/sampdir 
 It creates a sample directory called sampdir under /usr.
 Removing a directory is done with rmdir. The directory must be empty or the command will fail. To remove a directory and all of its contents you have to do rm -rf.
+
+### Moving, Renaming or Removing a File
+Note that mv does double duty, in that it can:
+
+Simply rename a file
+Move a file to another location, while possibly changing its name at the same time.
+Command	Usage
+mv	Rename a file
+rm	Remove a file
+rm -f	Forcefully remove a file
+rm -i	Interactively remove a file
+
+### Renaming or Removing a directory
+
+rmdir works only on empty directories; otherwise you get an error. 
+
+While typing rm -rf is a fast and easy way to remove a whole filesystem tree recursively, it is extremely dangerous and should be used with the utmost care, especially when used by root (recall that recursive means drilling down through all sub-directories, all the way down a tree).
