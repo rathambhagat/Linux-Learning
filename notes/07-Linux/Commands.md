@@ -108,3 +108,28 @@ rm -i	Interactively remove a file
 rmdir works only on empty directories; otherwise you get an error. 
 
 While typing rm -rf is a fast and easy way to remove a whole filesystem tree recursively, it is extremely dangerous and should be used with the utmost care, especially when used by root (recall that recursive means drilling down through all sub-directories, all the way down a tree).
+
+mv	Rename a directory
+rmdir	Remove an empty directory
+rm -rf	Forcefully remove a directory recursively
+
+### Modifying the Command line prompt
+
+The PS1 variable is the character string that is displayed as the prompt on the command line. Most distributions set PS1 to a known default value, which is suitable in most cases. However, users may want custom information to show on the command line. For example, some system administrators require the user and the host system name to show up on the command line as in:
+
+student@r9 $
+
+This could prove useful if you are working in multiple roles and want to be always reminded of who you are and what machine you are on. The prompt above could be implemented by setting the PS1 variable to: \u@\h \$.
+
+For example:
+
+$ echo $PS1
+\$
+$ PS1="\u@\h \$ "
+student@r9 $ echo $PS1
+\u@\h \$
+student@r9 $
+
+By convention, most systems are set up so that the root user has a pound sign (#) as their prompt.
+
+
