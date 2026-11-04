@@ -203,3 +203,31 @@ The final step in this process is mounting, which bridges the gap between the pa
 | **/boot** | Files required to start the system, including the Linux kernel itself. Windows manages boot files through the Windows Boot Manager; macOS handles booting through its own firmware. Neither exposes these files in a user-navigable folder in the same way. |
 | **/run** | Runtime data for processes started since the last boot, such as process ID files and lock files. Neither Windows nor macOS have a direct equivalent. |
 
+## Removable Media
+Continuing the "everything is a directory" principle, removable media such as USB drives and optical discs are also accessed through the filesystem tree rather than through separate drive letters. On modern Linux systems, these devices are typically mounted automatically under /run/media/yourusername/disklabel. Older distributions may use /media instead.
+For example, if your username is student and you plug in a USB drive labeled FEDORA, the system will make it accessible at /run/media/student/FEDORA/. 
+
+A file called README.txt stored on that drive would then be found at /run/media/student/FEDORA/README.txt.
+
+This is directly analogous to how Windows might assign that same drive the letter E:\, and the file would be at E:\README.txt. The underlying concept is identical; only the addressing method differs.
+
+## A Closer Look at the Filesystem Hierarchy
+One of the first differences you will notice between Windows, macOS, and Linux is that Linux treats uppercase and lowercase letters in filenames and directory names as completely distinct. This means that /boot, /Boot, and /BOOT are three entirely separate directories as far as Linux is concerned.
+
+This is a significant adjustment for users moving from Windows or macOS. Both of those systems are case-insensitive, meaning that Documents, documents, and DOCUMENTS all refer to the same folder. To be more precise, both Windows and macOS are case-preserving (they remember the capitalization you used), but case-insensitive (they do not distinguish between variations when looking up files). By contrast, Linux is fully case-sensitive: capitalization is always meaningful.
+
+In practice, this means you need to be exact when typing paths and filenames on a Linux system. Typing cd /Home when the correct path is /home will produce an error, not silently redirect you to the right place. This precision is intentional: it eliminates ambiguity and is consistent with how Linux handles nearly everything else, from commands to usernames.
+
+## The /usr Directory: Separating System from Software
+
+You may have noticed that several directories at the root of the filesystem, such as /bin, /lib, and /sbin, have counterparts in /usr (e.g., /usr/bin, /usr/lib, and /usr/sbin). To understand why, we need to take a brief look at how Linux distinguishes between two categories of files.
+
+The directories directly under / contain only what is strictly necessary to boot the system and perform basic recovery tasks: the minimum needed before anything else is loaded. Think of these as the tools a technician would need if the system were damaged and they had to repair it from scratch.
+
+Everything else, the broader collection of programs, libraries, and resources that make up a fully functioning system, lives under /usr. The name originally stood for "Unix System Resources", and today it is best understood as the home of the operating system's general-purpose software layer.
+
+On most modern Linux distributions, the distinction between /bin and /usr/bin (and their counterparts) has been removed entirely: /bin is simply a symbolic link pointing to /usr/bin. This change reflects the reality that the original reason for the separation (fitting the system onto multiple smaller disks) no longer applies to modern hardware. You may still encounter both paths in documentation and scripts, but they lead to the same place on current systems.
+
+The key takeaway is that when you are looking for a program or tool on a Linux system, /usr/bin is the first place to look. If you have installed software manually or compiled something from source, check /usr/local/bin.
+
+
