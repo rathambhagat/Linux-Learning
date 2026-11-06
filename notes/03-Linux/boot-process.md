@@ -230,4 +230,34 @@ On most modern Linux distributions, the distinction between /bin and /usr/bin (a
 
 The key takeaway is that when you are looking for a program or tool on a Linux system, /usr/bin is the first place to look. If you have installed software manually or compiled something from source, check /usr/local/bin.
 
+# Graphical Interface
+
+## How Graphical Desktops Loads
+On GNOME-based systems, including Ubuntu, Fedora, and RHEL, the default display manager is GDM3 (GNOME Display Manager). KDE-based systems use SDDM (Simple Desktop Display Manager) on modern installations; older documentation may reference KDM as KDE's display manager, but KDM has been discontinued and replaced by SDDM on current distributions.
+
+Under the hood, the display manager relies on a display server, the software that handles communication between your hardware and the graphical applications you run.
+
+Wayland is now the default display server on most current distributions, including Ubuntu 22.04 and later, Fedora, and RHEL. If you are running an older distribution, such as Ubuntu 18.04 or CentOS 7, your system is likely still using X11, which continues to function reliably on those platforms.
+
+If the graphical desktop does not start automatically, it can be launched manually from a text console by starting the display manager directly. The command you use to accomplish this varies slightly depending on the distribution: on Ubuntu and some other Debian-based systems, the command is sudo systemctl start gdm3, while on Fedora, RHEL, and several other distributions, it is sudo systemctl start gdm. Either way, the result is the same: the display manager starts and the login screen is presented. The older startx command is also available on many systems and launches a desktop session directly, bypassing the login screen entirely. This approach is less common on modern installations but remains a useful fallback when the display manager cannot be started.
+
+## Desktop Environment
+
+Every desktop environment is built around two core components:
+
+- A session manager, which starts and maintains the elements of the graphical session.
+- A window manager, which controls how windows are displayed, moved, resized, and decorated on screen.
+
+These two components, along with a consistent set of bundled applications and utilities, are generally used together as a coordinated unit, and it is this combination that produces the seamless, unified experience the user sees as a desktop. Technically, components from different environments can be mixed, but in practice, most users work within a single, complete desktop environment.
+
+### GNOME
+GNOME is the most widely deployed desktop environment in the Linux ecosystem and is the default on all of these distributions. Ubuntu 24.04, for example, ships with GNOME 46.
+### KDE Plasma
+KDE Plasma is the other major desktop environment you are likely to encounter. It is more feature-rich and highly configurable, with a layout (a taskbar along the bottom, an application launcher, and a system tray) that will feel immediately familiar to users coming from Windows. KDE has traditionally been associated with SUSE and openSUSE, though openSUSE also offers a GNOME variant, which is the version used in this course.
+### Other desktop environment
+- XFCE and LXQt are lightweight environments designed for older or lower-powered hardware. They are practical choices when system resources are limited.
+- Cinnamon is the default desktop on Linux Mint. It features a traditional layout (a taskbar along the bottom, a start menu, and a system tray) that will feel comfortable to users transitioning from Windows.
+- MATE is a continuation of the older GNOME 2 interface and is favored by users who prefer a more classical desktop experience.
+
+
 
