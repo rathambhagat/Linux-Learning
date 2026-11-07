@@ -259,5 +259,60 @@ KDE Plasma is the other major desktop environment you are likely to encounter. I
 - Cinnamon is the default desktop on Linux Mint. It features a traditional layout (a taskbar along the bottom, a start menu, and a system tray) that will feel comfortable to users transitioning from Windows.
 - MATE is a continuation of the older GNOME 2 interface and is favored by users who prefer a more classical desktop experience.
 
+# System Configuration from the Graphical Interface
+
+## System settings 
+
+### Access System settings
+The Settings application is the central location for configuring your system. From here, you can adjust display settings, manage network connections, change the date and time, configure users, and much more, all without touching the command line.
+
+On GNOME-based distributions, the quickest way to open Settings is to click the icon cluster in the upper-right corner of the screen and select the Settings icon, typically represented by a gear. You can also search for "Settings" in the Activities Overview. On Ubuntu specifically, Settings is also pinned to the sidebar dock by default.
+
+The layout of the Settings application varies somewhat between distributions and GNOME versions, so the exact location of a particular option may differ from what is shown in this course.
+
+## Date and Time Settings
+
+Linux uses Coordinated Universal Time (UTC) internally for all timekeeping. UTC is the global standard for precise timekeeping and the basis for all time zones; it is similar to Greenwich Mean Time (GMT) but more precisely defined. Storing time internally as UTC is a deliberate design choice that ensures consistency across time zones, avoids complications with daylight saving time transitions, and keeps system logs accurate regardless of the machine's location.
+
+## Network time protocol
+
+When Automatic Date & Time is enabled, Linux uses the Network Time Protocol (NTP) to keep the system clock accurate. NTP works by querying a network of highly precise reference servers distributed across the internet, including servers synchronized to atomic clocks, and making small, continuous adjustments to the local clock to keep it accurate
+
+In practice, this happens silently in the background and requires no user intervention. All major Linux distributions ship with NTP configured and running by default, referencing time servers operated or recommended by the distribution itself. On most current distributions, the NTP client is handled by systemd-timesyncd, a lightweight time synchronization service that is part of systemd. More advanced setups, such as servers that need highly precise timekeeping or that serve time to other machines on a local network, use a full NTP daemon such as chrony or ntpd, but for desktop use, systemd-timesyncd is sufficient and requires no configuration.
+
+Enabling automatic time synchronization in the Date & Time settings  ensures that systemd-timesyncd is active. Disabling it stops the service and allows you to set the clock manually; this is useful in isolated environments without internet access, but not recommended for general use, as clocks that are not synchronized will drift gradually over time.
+
+## Network Configuration
+
+Network Manager handles the full range of connection types a desktop or laptop user is likely to encounter: wired Ethernet, Wi-Fi, mobile broadband, and Virtual Private Networks (VPN). It also manages connection profiles, storing the settings for networks you have connected to previously so they reconnect automatically when available.
+
+## Wired and Wireless Connection
+
+### Wired Connections
+Wired Ethernet connections are the simplest to manage and typically require no manual setup. When you plug in a network cable, Network Manager detects the connection automatically and configures it using DHCP (Dynamic Host Configuration Protocol). DHCP is the standard mechanism by which a router or network server automatically assigns your machine an IP address, subnet mask, default gateway, and DNS server settings. This is exactly how wired connections work on Windows and macOS as well.
+
+If you are on a network that requires a static IP address, where the address is fixed rather than assigned automatically, Network Manager supports manual configuration. To access these settings, open Settings → Network, locate your wired connection, and click the gear icon next to it. The IPv4 and IPv6 tabs allow you to switch from Automatic (DHCP) to Manual and enter a specific IP address, subnet mask, gateway, and DNS server.
+
+Within the same connection settings panel, you can also view or change the MAC address of your network interface if your hardware supports it. The MAC address is a unique identifier assigned to every network card, expressed as a 12-character hexadecimal value such as 00:1A:2B:3C:4D:5E, and is used by routers and network switches to identify devices on the local network. Changing it is occasionally useful for troubleshooting or in environments that control network access based on MAC addresses.
+
+## Installing and Updating software
+
+Packages are self-contained bundles that include program files, configuration files, documentation, and metadata. Every component of a Linux system, from the kernel itself to the web browser and text editor, is delivered and managed as a package.
+
+A key characteristic of Linux packages is dependency management. Most packages rely on other packages to function. An email client that supports encrypted connections, for example, depends on a package providing SSL/TLS libraries. The package manager understands these relationships and installs all required dependencies automatically.
+
+Every Linux distribution has two layers of package management tools:
+
+- A low-level package manager that handles unpacking files and placing them in the correct locations, but does not resolve dependencies automatically.
+- A high-level package manager that communicates with online repositories, downloads packages and their dependencies automatically, and provides the interface, graphical or command-line, through which most software management is done.
+
+High-level package managers work by downloading metadata from these repositories. Metadata is essentially a local "catalog" of all available software and version numbers. This explains why the local catalog must be refreshed (e.g., via an update command) before the system can "see" the latest available software or security patches.
+
+### Debian Packaging: APT and dpkg
+Debian-based distributions, including Ubuntu and Linux Mint, use dpkg as the low-level package manager. It can install, remove, and inspect individual .deb package files directly, but does not connect to repositories or resolve dependencies on its own.
+
+The high-level tool is APT (Advanced Package Tool), which builds on dpkg and adds repository connectivity, automatic dependency resolution, and system-wide update management. APT is what runs behind the scenes when you use the apt or apt-get commands on Ubuntu, which we will cover later in the course.
+
+Each distribution maintains its own repositories. Although the APT format is standardized, packages are built specifically for each distribution and version. Installing packages from a repository targeting a different distribution can cause conflicts and is not recommended.
 
 
